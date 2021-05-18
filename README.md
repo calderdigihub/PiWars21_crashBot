@@ -33,8 +33,8 @@ https://piwars.org/2021-vpw/challenges/
 
 ## Other Teams in the Area:
 
-**Stonk (Bradford Grammar School)**
-**Leeds Raspberry Jam** (blog: https://piwars.leedsraspjam.co.uk/)
+* **Stonk (Bradford Grammar School)**
+* **Leeds Raspberry Jam** (blog: https://piwars.leedsraspjam.co.uk/)
 
 
 ## Links to other sites of interest:

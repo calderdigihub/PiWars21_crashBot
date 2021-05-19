@@ -4,13 +4,32 @@
 
 Group Repo for the College PiWars entry
 
+(project board: https://github.com/orgs/calderdigihub/projects/2)
+
 ## Introduction
 
-Pi Wars is a non-destructive Raspberry Pi robotics competition with both autonomous and remote-controlled challenges. It takes place over one weekend and features teams of school students, family members and hobbyists as well as solo roboteers. The event is open to anyone on planet Earth! 
+Pi Wars is a non-destructive Raspberry Pi robotics competition with both autonomous and remote-controlled challenges. It takes place over one weekend and features teams of school students, family members and hobbyists as well as solo roboteers. The event is open to anyone on planet Earth!
 
 You design a robot controlled by a Raspberry Pi that competes to complete a series of challenges.
 
 It's normally held over one weekend at the University of Cambridge but due to COVID the competition has been changed around for entrants to complete at home.
+
+## Important dates
+
+* ~~Saturday 23rd & Sunday 24th January 2021 – Pi Wars at Home Conference~~
+
+* Friday, 18th June 2021 – videos for technical and artistic merit must be submitted before or on this date.
+
+* **Thursday, 24th June 2021 – videos of challenge runs to be submitted before or on this date.**
+
+* Friday, 25th June to Thursday, 8th July – Judging takes place
+
+* Friday, 2nd July 2021 – all blogging must be complete by this date.
+
+* Saturday, 10th July 2021 – Competition broadcast and results day for Young Teams.
+
+* Sunday, 11th July 2021 – Competition broadcast and results day for Beginner, Intermediate and Advanced teams.
+
 
 ## The Rules
 
@@ -50,3 +69,11 @@ Interesting info for Power:
  https://github.com/Footleg/PiWars2019
 
 https://piwars.org/help-tips/
+
+# How we will work
+
+All work will primarily be managed via this repository.
+
+Now you have access please fork the repository into your own account and do all your *local* development there.
+
+Once you have completed your task then create a pull request to have it merged into the main repository.

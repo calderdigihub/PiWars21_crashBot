@@ -4,7 +4,11 @@
 
 Group Repo for the College PiWars entry
 
-(project board: https://github.com/orgs/calderdigihub/projects/2)
+project board: https://github.com/orgs/calderdigihub/projects/2
+
+Discussion board: https://github.com/calderdigihub/PiWars21_crashBot/discussions
+
+Issues list: https://github.com/calderdigihub/PiWars21_crashBot/issues
 
 ## Introduction
 

@@ -74,6 +74,10 @@ Interesting info for Power:
 
 https://piwars.org/help-tips/
 
+Link for Shetland Attack Pony: Mobile code -- nice example of a 3D type simulator
+
+https://github.com/furbrain/ArgyllOtter
+
 # How we will work
 
 All work will primarily be managed via this repository.

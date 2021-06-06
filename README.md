@@ -4,7 +4,11 @@
 
 Group Repo for the College PiWars entry
 
-(project board: https://github.com/orgs/calderdigihub/projects/2)
+project board: https://github.com/orgs/calderdigihub/projects/2
+
+Discussion board: https://github.com/calderdigihub/PiWars21_crashBot/discussions
+
+Issues list: https://github.com/calderdigihub/PiWars21_crashBot/issues
 
 ## Introduction
 
@@ -69,6 +73,10 @@ Interesting info for Power:
  https://github.com/Footleg/PiWars2019
 
 https://piwars.org/help-tips/
+
+Link for Shetland Attack Pony: Mobile code -- nice example of a 3D type simulator
+
+https://github.com/furbrain/ArgyllOtter
 
 # How we will work
 

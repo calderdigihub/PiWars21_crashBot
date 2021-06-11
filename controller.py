@@ -55,6 +55,15 @@ def forward():
 	left_reverse()
 	print("B")
 
+def left():
+	right_forward()
+	left_forward()
+	print("L")
+def right():
+	right_reverse()
+	left_reverse()
+	print("R")
+
 controller = InputDevice('/dev/input/event2')
 
 
@@ -62,14 +71,25 @@ for event in controller.read_loop():
 
 	print(str(event.code)+" "+str(event.value))
 
+       # if event.code == 17:
+       #    if event.value == -1:
+       #         do this
+       #     elif event.value == 1:
+       #         do that
+
+       # if event.code == 16:
+
+
+
+
 	if event.code == 17 and event.value == -1:
 		forward()
 	if event.code == 17 and event.value == 1:
 		back()
-	#if event.code == 16 and event.value == 1:
-		#right()
-	#if event.code and event.value == -1:
-	#	left()
+	if event.code == 16 and event.value == 1:
+		right()
+	if event.code == 16 and event.value == -1:
+		left()
 	if event.code == 314 or event.code == 315:
 		stop()
 	if event.code == 316:

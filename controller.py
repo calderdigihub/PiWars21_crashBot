@@ -11,12 +11,18 @@ rightForward=37
 rightBackward=35
 leftForward=38
 leftBackward=36
+up=33
+down=31
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(leftForward, GPIO.OUT)
 GPIO.setup(leftBackward, GPIO.OUT)
 GPIO.setup(rightForward, GPIO.OUT)
 GPIO.setup(rightBackward, GPIO.OUT)
+GPIO.setup(up, GPIO.OUT)
+GPIO.setup(down, GPIO.OUT)
+
+
 
 def left_forward():
 	GPIO.output(leftForward, GPIO.HIGH)
@@ -43,6 +49,8 @@ def stop():
 	GPIO.output(leftBackward, GPIO.LOW)
 	GPIO.output(rightForward, GPIO.LOW)
 	GPIO.output(rightBackward, GPIO.LOW)
+	GPIO.output(down, GPIO.LOW)
+	GPIO.output(up, GPIO.LOW)
 
 
 
@@ -64,6 +72,18 @@ def right():
 	left_reverse()
 	print("R")
 
+
+def f_up():
+	GPIO.output(up, GPIO.HIGH)
+	GPIO.output(down, GPIO.LOW)
+def f_down():
+	GPIO.output(down, GPIO.HIGH)
+	GPIO.output(up, GPIO.LOW)
+
+
+
+
+
 controller = InputDevice('/dev/input/event2')
 
 
@@ -79,9 +99,6 @@ for event in controller.read_loop():
 
        # if event.code == 16:
 
-
-
-
 	if event.code == 17 and event.value == -1:
 		forward()
 	if event.code == 17 and event.value == 1:
@@ -94,22 +111,11 @@ for event in controller.read_loop():
 		stop()
 	if event.code == 316:
 		break
-	if event.code == 17 and event.value == 0 or event.code == 16 and event.value == 0:
-		stop()
 	if event.code == 304 and event.value == 1:
-		left_reverse()
-		sleep(2)
+		f_down()
+	if event.code == 308 and event.value == 1:
+		f_up()
+	if event.code == 17 and event.value == 0 or event.code == 16 and event.value == 0 or event.code == 308 and event.value == 0 or event.code == 304 and event.value == 0:
 		stop()
-		left_forward()
-		sleep(2)
-		stop()
-		right_forward()
-		sleep(2)
-		stop()
-		right_reverse()
-		sleep(2)
-		stop()
-
-
 stop()
 GPIO.cleanup()

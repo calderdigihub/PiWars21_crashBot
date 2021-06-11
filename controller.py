@@ -1,68 +1,95 @@
-import piconzero as pz
-import evdev
-#from guizero import App, Text, TextBox, PushButton, Slider
-pz.init()
-def f_forward(speed):
-	if speed > 50 and speed < 150:
-		pz.forward(speed-50)
-		print("forward at speed: "+str(speed-50))
-	#stats.value = speed.value
+import RPi.GPIO as GPIO
+from evdev import InputDevice, categorize, ecodes
+import sys
+from time import sleep
 
-def f_back(speed):
-	if speed > 50 and speed < 150:
-		pz.reverse(speed-50)
-		print("Reverse at speed: "+str(speed-50))
-    #stats.value = "back"
+mode=GPIO.getmode()
 
-def f_left():
-	pz.spinLeft(60)
-	print("Spining left")
-    #stats.value = "left"
+GPIO.cleanup()
 
-def f_right():
-	pz.spinRight(60)
-	print("Spining right")
-    #stats.value = "right"
+rightForward=37
+rightBackward=35
+leftForward=38
+leftBackward=36
 
-def f_angle(angle):
-    #pz.setOutputConfig (1, angle)
-    #stats.value = "f_angle"
-def setSpeed(Speed):
-	#speedo.value = Speed
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(leftForward, GPIO.OUT)
+GPIO.setup(leftBackward, GPIO.OUT)
+GPIO.setup(rightForward, GPIO.OUT)
+GPIO.setup(rightBackward, GPIO.OUT)
+
+def left_forward():
+	GPIO.output(leftForward, GPIO.HIGH)
+	GPIO.output(leftBackward, GPIO.LOW)
+	print("Moving forward L")
+def left_reverse():
+	GPIO.output(leftForward, GPIO.LOW)
+	GPIO.output(leftBackward, GPIO.HIGH)
+	print("Moving back L")
+def right_forward():
+	GPIO.output(rightForward, GPIO.HIGH)
+	GPIO.output(rightBackward, GPIO.LOW)
+	print("Moving forward R")
+def right_reverse():
+	GPIO.output(rightForward, GPIO.LOW)
+	GPIO.output(rightBackward, GPIO.HIGH)
+	print("Moving back R")
+
+	GPIO.output(leftForward, GPIO.LOW)
+
+def stop():
+	print("Stoping")
+	GPIO.output(leftForward, GPIO.LOW)
+	GPIO.output(leftBackward, GPIO.LOW)
+	GPIO.output(rightForward, GPIO.LOW)
+	GPIO.output(rightBackward, GPIO.LOW)
 
 
-'''app = App(title="Dragon bot", layout = "grid")
-stats = Text(app, text="", grid = [4,1])
-speed = Slider(app,command = setSpeed, start = 0, end = 100, grid= [4,3,5,3])
-speedo = Text(app, text="", grid = [6,3])
-angle = Slider(app, command= f_angle, start = 0, end = 180, grid= [4,2,5,2]) 
-forward = PushButton(app, args= [speedo.text], command= f_forward, text="F", grid= [1,2])
-back = PushButton(app, args= [speedo], command= f_back, text="B", grid= [1,4])
-left = PushButton(app, args= [speedo], command= f_left, text="L", grid= [0,3])
-right = PushButton(app, args= [speedo], command= f_right, text="R", grid= [2,3])
-app.display()'''
 
-#sets the device we are reading input from as event 0 as no other input devices should be attached
-controller = InputDevice('/dev/input/event0')
+def back():
+	right_reverse()
+	left_forward()
+	print("F")
+def forward():
+	right_forward()
+	left_reverse()
+	print("B")
+
+controller = InputDevice('/dev/input/event2')
 
 
-#starts the event loop
 for event in controller.read_loop():
-	#prints the event and value of it for keys 0 is up and 1 is down 
+
 	print(str(event.code)+" "+str(event.value))
-	
-	#goes to the forward function if the right trigger is pressed 
-	if event.code == 5:
-		f_forward(event.value)
-	#goes to the back function if the left trigger is pressed 
-	if event.code == 2:
-		f_back(event.value)
-	#goes to the left tank function if the left d pad button is down
-	if event.code == 16 and event.value == -1:
-		f_left()
-	#goes to the right tank function if the right d pad button is down
-	if event.code == 16 and event.value == 1:
-		f_right()
-	#stops all commands is the centeral button is pressed
+
+	if event.code == 17 and event.value == -1:
+		forward()
+	if event.code == 17 and event.value == 1:
+		back()
+	#if event.code == 16 and event.value == 1:
+		#right()
+	#if event.code and event.value == -1:
+	#	left()
+	if event.code == 314 or event.code == 315:
+		stop()
 	if event.code == 316:
-		pz.stop( ) 
+		break
+	if event.code == 17 and event.value == 0 or event.code == 16 and event.value == 0:
+		stop()
+	if event.code == 304 and event.value == 1:
+		left_reverse()
+		sleep(2)
+		stop()
+		left_forward()
+		sleep(2)
+		stop()
+		right_forward()
+		sleep(2)
+		stop()
+		right_reverse()
+		sleep(2)
+		stop()
+
+
+stop()
+GPIO.cleanup()

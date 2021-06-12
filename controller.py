@@ -13,6 +13,9 @@ leftForward=38
 leftBackward=36
 up=33
 down=31
+servoPin=22
+
+
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(leftForward, GPIO.OUT)
@@ -21,17 +24,18 @@ GPIO.setup(rightForward, GPIO.OUT)
 GPIO.setup(rightBackward, GPIO.OUT)
 GPIO.setup(up, GPIO.OUT)
 GPIO.setup(down, GPIO.OUT)
+GPIO.setup(servoPin, GPIO.OUT)
 
+claw=GPIO.PWM(servoPin, 50)
 
-
-def left_forward():
+def left_reverse():
 	GPIO.output(leftForward, GPIO.HIGH)
 	GPIO.output(leftBackward, GPIO.LOW)
-	print("Moving forward L")
-def left_reverse():
+	print("Moving back L")
+def left_forward():
 	GPIO.output(leftForward, GPIO.LOW)
 	GPIO.output(leftBackward, GPIO.HIGH)
-	print("Moving back L")
+	print("Moving forward L")
 def right_forward():
 	GPIO.output(rightForward, GPIO.HIGH)
 	GPIO.output(rightBackward, GPIO.LOW)
@@ -56,20 +60,20 @@ def stop():
 
 def back():
 	right_reverse()
-	left_forward()
-	print("F")
-def forward():
-	right_forward()
 	left_reverse()
 	print("B")
+def forward():
+	right_forward()
+	left_forward()
+	print("F")
 
 def left():
 	right_forward()
-	left_forward()
+	left_reverse()
 	print("L")
 def right():
 	right_reverse()
-	left_reverse()
+	left_forward()
 	print("R")
 
 
@@ -79,12 +83,15 @@ def f_up():
 def f_down():
 	GPIO.output(down, GPIO.HIGH)
 	GPIO.output(up, GPIO.LOW)
-
+def f_angle(angle):
+	claw.ChangeDutyCycke(angle)
 
 
 
 
 controller = InputDevice('/dev/input/event2')
+angle = float(12)
+claw.ChangeDutyCycle
 
 
 for event in controller.read_loop():
@@ -99,23 +106,53 @@ for event in controller.read_loop():
 
        # if event.code == 16:
 
-	if event.code == 17 and event.value == -1:
-		forward()
-	if event.code == 17 and event.value == 1:
-		back()
-	if event.code == 16 and event.value == 1:
-		right()
-	if event.code == 16 and event.value == -1:
-		left()
+	if event.code == 17: 
+		if event.value == -1:
+			forward()
+		if event.value == 1:
+			back()
+		else:
+			stop()
+	if event.code == 16:
+		if event.value == 1:
+			right()
+		if event.value == -1:
+			left()
+		else:
+			stop()
+	
+	if event.code == 304:
+		if event.value == 1:
+			f_down()
+		else:
+			stop()
+			
+	if event.code == 308:
+		if event.value == 1:
+			f_up()
+		else:
+			stop()
+			
+	if event.code == 305:
+		if event.value == 1:
+			if angle + (10/18) <=12:
+				angle = angle + (10/18)
+				f_angle(angle)
+		else:
+			stop()
+			
+	if event.code == 307
+		if event.value == 1:
+			if angle - (10/18) >=2:
+				angle = angle - (10/18)
+				f_angle(angle)
+		else:
+			stop()
+			
 	if event.code == 314 or event.code == 315:
 		stop()
 	if event.code == 316:
 		break
-	if event.code == 304 and event.value == 1:
-		f_down()
-	if event.code == 308 and event.value == 1:
-		f_up()
-	if event.code == 17 and event.value == 0 or event.code == 16 and event.value == 0 or event.code == 308 and event.value == 0 or event.code == 304 and event.value == 0:
-		stop()
 stop()
 GPIO.cleanup()
+

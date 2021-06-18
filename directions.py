@@ -42,8 +42,6 @@ def right_reverse():
 	GPIO.output(rightBackward, GPIO.HIGH)
 	print("Moving back R")
 
-	GPIO.output(leftForward, GPIO.LOW)
-
 def stop():
 	print("Stoping")
 	GPIO.output(leftForward, GPIO.LOW)
@@ -77,10 +75,12 @@ def right():
 def f_up():
 	GPIO.output(up, GPIO.HIGH)
 	GPIO.output(down, GPIO.LOW)
+	print("up")
 def f_down():
 	GPIO.output(down, GPIO.HIGH)
 	GPIO.output(up, GPIO.LOW)
+	print("down")
 def f_angle(angle):
 	claw.ChangeDutyCycke(angle)
-
+	print("angle at: "+str(angle))
 

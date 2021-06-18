@@ -15,10 +15,9 @@ with mic as source:
 	try:
     	# using google speech recognition
 		code = r.recognize_google(audio_text)
-    	print("Text: "+code)
-		if 
+		print("Text: "+code)
 	except:
-    	print("Sorry, I did not get that")
+		print("Sorry, I did not get that")
 		code="blank"
 	if code == "forward":
 		directions.forward()
@@ -42,10 +41,9 @@ while r.recognize_google(audio_text) != "end":
 	try:
     	# using google speech recognition
 		code = r.recognize_google(audio_text)
-    	print("Text: "+code)
-		if 
+		print("Text: "+code)
 	except:
-    	print("Sorry, I did not get that")
+		print("Sorry, I did not get that")
 		code="blank"
 	if code == "forward":
 		directions.forward()

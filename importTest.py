@@ -17,61 +17,52 @@ claw.ChangeDutyCycle
 for event in controller.read_loop():
 
 	print(str(event.code)+" "+str(event.value))
-
-       # if event.code == 17:
-       #    if event.value == -1:
-       #         do this
-       #     elif event.value == 1:
-       #         do that
-
-       # if event.code == 16:
-
 	if event.code == 17: 
 		if event.value == -1:
-			direction.forward()
+			directions.forward()
 		elif event.value == 1:
-			direction.back()
+			directions.back()
 		else:
-			direction.stop()
+			directions.stop()
 	if event.code == 16:
 		if event.value == 1:
-			direction.right()
+			directions.right()
 		elif event.value == -1:
-			direction.left()
+			directions.left()
 		else:
-			direction.stop()
+			directions.stop()
 	
 	if event.code == 304:
 		if event.value == 1:
-			direction.f_down()
+			directions.f_down()
 		else:
-			direction.stop()
+			directions.stop()
 			
 	if event.code == 308:
 		if event.value == 1:
-			direction.f_up()
+			directions.f_up()
 		else:
-			direction.stop()
+			directions.stop()
 			
 	if event.code == 305:
 		if event.value == 1:
 			if angle + (10/18) <=12:
 				angle = angle + (10/18)
-				direction.f_angle(angle)
+				directions.f_angle(angle)
 		else:
-			direction.stop()
+			directions.stop()
 			
 	if event.code == 307:
 		if event.value == 1:
 			if angle - (10/18) >=2:
 				angle = angle - (10/18)
-				direction.f_angle(angle)
+				directions.f_angle(angle)
 		else:
-			direction.stop()
+			directions.stop()
 			
 	if event.code == 314 or event.code == 315:
-		direction.stop()
+		directions.stop()
 	if event.code == 316:
 		break
-direction.stop()
+directions.stop()
 GPIO.cleanup()

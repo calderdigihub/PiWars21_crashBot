@@ -141,7 +141,7 @@ for event in controller.read_loop():
 		else:
 			stop()
 			
-	if event.code == 307
+	if event.code == 307:
 		if event.value == 1:
 			if angle - (10/18) >=2:
 				angle = angle - (10/18)

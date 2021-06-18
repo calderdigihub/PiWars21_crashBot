@@ -1,11 +1,8 @@
 import RPi.GPIO as GPIO
-from evdev import InputDevice, categorize, ecodes
 import sys
 from time import sleep
 
 mode=GPIO.getmode()
-
-GPIO.cleanup()
 
 rightForward=37
 rightBackward=35
@@ -45,8 +42,6 @@ def right_reverse():
 	GPIO.output(rightBackward, GPIO.HIGH)
 	print("Moving back R")
 
-	GPIO.output(leftForward, GPIO.LOW)
-
 def stop():
 	print("Stoping")
 	GPIO.output(leftForward, GPIO.LOW)
@@ -80,79 +75,12 @@ def right():
 def f_up():
 	GPIO.output(up, GPIO.HIGH)
 	GPIO.output(down, GPIO.LOW)
+	print("up")
 def f_down():
 	GPIO.output(down, GPIO.HIGH)
 	GPIO.output(up, GPIO.LOW)
+	print("down")
 def f_angle(angle):
 	claw.ChangeDutyCycke(angle)
-
-
-
-
-controller = InputDevice('/dev/input/event2')
-angle = float(12)
-claw.ChangeDutyCycle
-
-
-for event in controller.read_loop():
-
-	print(str(event.code)+" "+str(event.value))
-
-       # if event.code == 17:
-       #    if event.value == -1:
-       #         do this
-       #     elif event.value == 1:
-       #         do that
-
-       # if event.code == 16:
-
-	if event.code == 17: 
-		if event.value == -1:
-			forward()
-		elif event.value == 1:
-			back()
-		else:
-			stop()
-	if event.code == 16:
-		if event.value == 1:
-			right()
-		elif event.value == -1:
-			left()
-		else:
-			stop()
-	
-	if event.code == 304:
-		if event.value == 1:
-			f_down()
-		else:
-			stop()
-			
-	if event.code == 308:
-		if event.value == 1:
-			f_up()
-		else:
-			stop()
-			
-	if event.code == 305:
-		if event.value == 1:
-			if angle + (10/18) <=12:
-				angle = angle + (10/18)
-				f_angle(angle)
-		else:
-			stop()
-			
-	if event.code == 307:
-		if event.value == 1:
-			if angle - (10/18) >=2:
-				angle = angle - (10/18)
-				f_angle(angle)
-		else:
-			stop()
-			
-	if event.code == 314 or event.code == 315:
-		stop()
-	if event.code == 316:
-		break
-stop()
-GPIO.cleanup()
+	print("angle at: "+str(angle))
 

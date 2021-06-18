@@ -116,7 +116,7 @@ for event in controller.read_loop():
 	if event.code == 16:
 		if event.value == 1:
 			right()
-		el`if event.value == -1:
+		elif event.value == -1:
 			left()
 		else:
 			stop()

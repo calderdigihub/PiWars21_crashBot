@@ -1,7 +1,9 @@
 #pip3 install SpeechRecognition
 #pip3 install pyaudio
 #https://realpython.com/python-speech-recognition/#picking-a-python-speech-recognition-package
+#https://maker.pro/raspberry-pi/tutorial/the-best-voice-recognition-software-for-raspberry-pi
 import speech_recognition as sr
+import directions
 r=sr.Recognizer()
 mic = sr.Microphone() 
 while r.recognize_google(audio_text) != "end":
@@ -14,6 +16,19 @@ while r.recognize_google(audio_text) != "end":
 
 	try:
     	# using google speech recognition
-    	print("Text: "+r.recognize_google(audio_text))
+		code = r.recognize_google(audio_text)
+    	print("Text: "+code)
+		if 
 	except:
     	print("Sorry, I did not get that")
+		code="blank"
+	if code == "forward":
+		directions.forward()
+	elif code == "reverse"
+		directions.back()
+	elif code == "right":
+		directions.right()
+	elif code == "left":
+		directions.left()
+	elif code == "stop":
+		directions.stop()

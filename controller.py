@@ -109,14 +109,14 @@ for event in controller.read_loop():
 	if event.code == 17: 
 		if event.value == -1:
 			forward()
-		if event.value == 1:
+		elif event.value == 1:
 			back()
 		else:
 			stop()
 	if event.code == 16:
 		if event.value == 1:
 			right()
-		if event.value == -1:
+		el`if event.value == -1:
 			left()
 		else:
 			stop()

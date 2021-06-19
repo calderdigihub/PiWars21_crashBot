@@ -1,32 +1,31 @@
 import RPi.GPIO as GPIO
 from evdev import InputDevice, categorize, ecodes
+import gpiozero
+
 import sys
 from time import sleep
 
-mode=GPIO.getmode()
 
 GPIO.cleanup()
 
-rightForward=37
-rightBackward=35
-leftForward=38
-leftBackward=36
-up=33
-down=31
-servoPin=22
+rightForward=26
+rightBackward=19
+leftForward=20
+leftBackward=16
+up=13
+down=6
+servoPin=gpiozero.Servo(17)
 
 
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(leftForward, GPIO.OUT)
 GPIO.setup(leftBackward, GPIO.OUT)
 GPIO.setup(rightForward, GPIO.OUT)
 GPIO.setup(rightBackward, GPIO.OUT)
 GPIO.setup(up, GPIO.OUT)
 GPIO.setup(down, GPIO.OUT)
-GPIO.setup(servoPin, GPIO.OUT)
 
-claw=GPIO.PWM(servoPin, 50)
 
 def left_reverse():
 	GPIO.output(leftForward, GPIO.HIGH)
@@ -44,8 +43,6 @@ def right_reverse():
 	GPIO.output(rightForward, GPIO.LOW)
 	GPIO.output(rightBackward, GPIO.HIGH)
 	print("Moving back R")
-
-	GPIO.output(leftForward, GPIO.LOW)
 
 def stop():
 	print("Stoping")
@@ -80,18 +77,25 @@ def right():
 def f_up():
 	GPIO.output(up, GPIO.HIGH)
 	GPIO.output(down, GPIO.LOW)
+	print ("Rasing")
 def f_down():
 	GPIO.output(down, GPIO.HIGH)
 	GPIO.output(up, GPIO.LOW)
-def f_angle(angle):
-	claw.ChangeDutyCycke(angle)
+	print ("Lowering")
+#def f_angle(angle):
+	#claw.ChangeDutyCycle(angle)
+	#print("Angle at: "+str((angle-2)*18))
+def f_angle_zero(angle2):
+	servoPin.value = angle2
+	print ("Angle at: "+str(angle2*90))
 
 
 
-
-controller = InputDevice('/dev/input/event2')
-angle = float(12)
-claw.ChangeDutyCycle
+controller = InputDevice('/dev/input/event0')
+#angle = float(12)
+angle2 = float(0)
+#claw.ChangeDutyCycle
+servoPin.value = angle2
 
 
 for event in controller.read_loop():
@@ -120,32 +124,38 @@ for event in controller.read_loop():
 			left()
 		else:
 			stop()
-	
+
 	if event.code == 304:
 		if event.value == 1:
 			f_down()
 		else:
 			stop()
-			
+
 	if event.code == 308:
 		if event.value == 1:
 			f_up()
 		else:
 			stop()
-			
+
 	if event.code == 305:
 		if event.value == 1:
-			if angle + (10/18) <=12:
-				angle = angle + (10/18)
-				f_angle(angle)
+			if angle2 + (2/18) <=1:
+				angle2 = angle2 + (2/18)
+				f_angle_zero(angle2)
+			#if angle + (10/18) <=12:
+				#angle = angle + (10/18)
+				#f_angle(angle)
 		else:
 			stop()
-			
+
 	if event.code == 307:
 		if event.value == 1:
-			if angle - (10/18) >=2:
-				angle = angle - (10/18)
-				f_angle(angle)
+			if angle2 - (2/18) >= -1:
+				angle2 = angle2 - (2/18)
+				f_angle_zero(angle2) 
+			#if angle - (10/18) >=2:
+				#angle = angle - (10/18)
+				#f_angle(angle)
 		else:
 			stop()
 			

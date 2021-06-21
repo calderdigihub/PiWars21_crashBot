@@ -90,7 +90,7 @@ while r.recognize_google(audio_text) != "end":
 		elif code == "forward middle":
 			directions.forward()
 			sleep(5)
-		directions.stop()
+			directions.stop()
 		elif code == "forward short":
 			directions.forward()
 			sleep(1)

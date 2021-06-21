@@ -64,7 +64,7 @@ while r.recognize_google(audio_text) != "end":
 		with mic as source:
 			r.adjust_for_ambient_noise(source)
 			print("listening")
-			audio_tetx = r.listen(source)
+			audio_text = r.listen(source)
 			print("Text: "+r.recognize_google(audio_text))
 			print("not listening")
 

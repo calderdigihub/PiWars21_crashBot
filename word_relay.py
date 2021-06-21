@@ -43,29 +43,21 @@ with mic as source:
 		directions.back()
 		sleep(1)
 		directions.stop()
-	elif code == "right long":
-		directions.left_forward()
-		sleep(10)
-		directions.stop()
-	elif code == "right middle":
-		directions.left_forward()
-		sleep(5)
-		directions.stop()
-	elif code == "right short":
+	elif code == "write long":
 		directions.left_forward()
 		sleep(1)
+		directions.stop()
+	elif code == "write short":
+		directions.left_forward()
+		sleep(0.5)
 		directions.stop()
 	elif code == "left long":
 		directions.right_forward()
-		sleep(10)
-		directions.stop()
-	elif code == "left middle":
-		directions.right_forward()
-		sleep(5)
+		sleep(1)
 		directions.stop()
 	elif code == "left short":
 		directions.right_forward()
-		sleep(1)
+		sleep(0.5)
 		directions.stop()
 
 while r.recognize_google(audio_text) != "end":
@@ -107,28 +99,20 @@ while r.recognize_google(audio_text) != "end":
 			directions.back()
 			sleep(1)
 			directions.stop()
-		elif code == "right long":
-			directions.left_forward()
-			sleep(10)
-			directions.stop()
-		elif code == "right middle":
-			directions.left_forward()
-			sleep(5)
-			directions.stop()
-		elif code == "right short":
+		elif code == "write long":
 			directions.left_forward()
 			sleep(1)
+			directions.stop()
+		elif code == "write short":
+			directions.left_forward()
+			sleep(0.5)
 			directions.stop()
 		elif code == "left long":
 			directions.right_forward()
-			sleep(10)
-			directions.stop()
-		elif code == "left middle":
-			directions.right_forward()
-			sleep(5)
+			sleep(1)
 			directions.stop()
 		elif code == "left short":
 			directions.right_forward()
-			sleep(1)
+			sleep(0.5)
 			directions.stop()
 

@@ -4,6 +4,7 @@
 #https://maker.pro/raspberry-pi/tutorial/the-best-voice-recognition-software-for-raspberry-pi
 import speech_recognition as sr
 import directions
+from time import sleep
 r=sr.Recognizer()
 mic = sr.Microphone() 
 with mic as source:

@@ -1,5 +1,5 @@
 from sensormodule import isSensorLeft, isSensorRight
-from directions import left,right,forward, left_forward,right_forward
+from directions import forward, left_forward,right_forward
 
 while True:
     if isSensorLeft() == True:
